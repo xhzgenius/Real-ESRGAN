@@ -123,7 +123,8 @@ def main():
             arch='clean',
             channel_multiplier=2,
             bg_upsampler=upsampler)
-    os.makedirs(args.output, exist_ok=True)
+    output_dir = os.path.join(args.output, os.path.basename(model_path))
+    os.makedirs(output_dir, exist_ok=True)
 
     if os.path.isfile(args.input):
         paths = [args.input]
@@ -156,9 +157,9 @@ def main():
             if img_mode == 'RGBA':  # RGBA images should be saved in png format
                 extension = 'png'
             if args.suffix == '':
-                save_path = os.path.join(args.output, f'{imgname}.{extension}')
+                save_path = os.path.join(output_dir, f'{imgname}.{extension}')
             else:
-                save_path = os.path.join(args.output, f'{imgname}_{args.suffix}.{extension}')
+                save_path = os.path.join(output_dir, f'{imgname}_{args.suffix}.{extension}')
             cv2.imwrite(save_path, output)
 
 
